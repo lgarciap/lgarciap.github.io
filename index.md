@@ -37,14 +37,14 @@ knit        : slidify::knit2slides
 
 ```
 ## 
-##      ADMINISTRACION           ALIMENTOS      BIOINFORMATICA 
-##                   1                   5                   1 
-##               CIVIL         COMPUTACION         ELECTRONICA 
-##                   2                   3                   3 
-##              FISICA          INDUSTRIAL            MECANICA 
-##                   1                   3                   1 
-## MECANICA INDUSTRIAL         MECATRONICA             QUIMICA 
-##                   1                   5                   3
+##       BIOINFORMATICS             CHEMICAL                CIVIL 
+##                    1                    3                    2 
+##  COMPUTER'S SCIENCES          ELECTRONICS     FOOD ENGINEERING 
+##                    3                    3                    5 
+##           INDUSTRIAL  MANAGEMENT SCIENCES          MECATRONICS 
+##                    3                    1                    5 
+##            MECHANICS MECHANICS INDUSTRIAL              PHYSICS 
+##                    1                    1                    1
 ```
 
 
