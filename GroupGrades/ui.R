@@ -22,6 +22,7 @@ shinyUI(fluidPage(theme = "style.css",
   titlePanel("Programming group. Faculty of Engineering"),
   mainPanel(width=100,
       fluidRow(
+        #Gruop Features
         titlePanel("Group Features"),
         column(5,
                class = "panels",
@@ -34,7 +35,7 @@ shinyUI(fluidPage(theme = "style.css",
                ),
                span(
                    class="subtitle",
-                   "Score evaluated so far:"
+                   "Score evaluated so far (points):"
                ),
                span(
                    textOutput("escEval")
@@ -109,7 +110,6 @@ shinyUI(fluidPage(theme = "style.css",
             )
       
       )
-      # Sidebar with a slider input for number of bins 
      
     
     )
