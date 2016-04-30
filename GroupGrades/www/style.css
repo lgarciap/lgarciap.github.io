@@ -1,0 +1,18 @@
+.panels{
+	background-color:#F5F5F5 !important;
+    border: solid 1px #E3E3E3;
+    border-radius: 5px;
+    margin-left: 1%;
+    float: left;
+}
+
+.row{
+    max-width: 90%;
+    margin: 0 auto;
+    margin-left: 9%;
+    margin-bottom: 1%;
+}
+
+.subtitle{
+    color:red;
+}
