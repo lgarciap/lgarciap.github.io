@@ -1,0 +1,119 @@
+---
+title       : Group score presentation
+subtitle    : 
+author      : Lynette Garcia
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+```{r echo=FALSE, results='hide'}
+    library(ggplot2)
+    #Loading data
+    rendimiento<-read.csv("Notas - 100-rendimiento_1.csv",sep = ";")
+    actFeatures<-read.csv("data/ponderacion.csv",sep = ";")
+    
+    actFeatures$Date<- as.Date(actFeatures$Date, "%d/%m/%Y")
+    #Loading data
+    rendimiento<-read.csv("Notas - 100-rendimiento_1.csv",sep = ";")
+    
+    #Getting means of activities
+    activitiesMean<-data.frame(colnames(rendimiento[3:13]), colMeans(rendimiento[3:13]))
+    names(activitiesMean)<-c("Activity", "Mean")
+    activitiesMean<-merge(activitiesMean,actFeatures)
+    activitiesMean<-activitiesMean[complete.cases(activitiesMean),]
+    
+    #Getting students performance by career
+    perfbyCar<-aggregate(rendimiento$Rendimiento~rendimiento$CARRERA,FUN = mean)
+    names(perfbyCar)<-c("career","performance")
+    perfbyCar$performance<-perfbyCar$performance*100
+    x<-perfbyCar$performance
+    names(x)<-perfbyCar$career
+
+
+```
+
+
+## Data Description. Part 1
+
+- The data were taken from the programming course 1, which is being conducted in the first year of the careers of engineering faculty.  
+
+- The dataset describes the grades until April 2016 in the activities evaluated.
+
+- So far have been assessed **`r sum(actFeatures[c(1:9,11,14),]$Value)`** points
+
+- Performance of each student is calculated by adding the cumulative score of each activity with respect to the points assessed to date and is expressed as a percentage.
+
+- The average performance of the group is **`r round(mean(rendimiento$Rendimiento)*100,2)`%**
+
+
+--- .class #ddesc1 
+
+## Data Description. Part 2
+
+- The group is composed of **`r nrow(rendimiento)`** students from **`r length(unique(rendimiento$CARRERA))`** university careers:  
+
+**_Students Distribution by Career_**
+```{r echo=FALSE, results='markup'}
+    Ctable<-table(rendimiento$CARRERA)
+    Ctable
+```
+
+
+
+--- .class #ddesc2
+
+## Exploratory Analysis. Part 1
+
+- Students in this group have performance problems, as shown in the following chart:  
+```{r echo=FALSE,fig.align='center', fig.height=6, fig.width=8}
+    
+    g <- ggplot(activitiesMean,aes(Date,Mean))+ geom_line( colour="#000099") + scale_x_date()
+                    g <- g + xlab("Activities Date")
+                    g <- g + ylab("Activities Mean")
+                    g <- g + ggtitle("Average scores for the activities by date")
+    model<-lm(Mean~Date,activitiesMean)
+    g <- g + geom_abline(slope = model$coefficients[2], intercept = model$coefficients[1], colour="red")    
+    g
+```
+- The tendency is to lower ratings.   
+           
+
+--- .class #expAn1 
+
+## Exploratory Analysis. Part 2
+
+```{r echo=FALSE}
+    best <- nrow(rendimiento[rendimiento$Rendimiento>0.70,])
+    percentage <- round((best/nrow(rendimiento))*100,1)
+```
+
+- As shown in the chart below, only **`r percentage`%** of the group has performance above 70%.  
+
+```{r echo=FALSE, fig.align='center', fig.height=3, fig.width=5}
+    g <- ggplot(data=rendimiento, aes(rendimiento$Rendimiento)) 
+            g <- g + geom_histogram(breaks=seq(0, 1, by =.2), col="red",aes(fill=..count..))
+            g <- g + scale_fill_gradient("Count", low = "yellow", high = "orange")
+            g <- g + ggtitle("Histogram of students performance") 
+            g <- g + xlab("Performance")
+            g <- g + ylab("Frequecy")
+    g
+
+```
+- Students of electronics and bioinformatics have better performance.
+```{r echo=FALSE, fig.align='center', fig.height=3, fig.width=8}
+ g <- ggplot(perfbyCar, aes(x=as.factor(career),y=performance, fill=career))
+            g <- g + geom_bar(stat = "identity")
+            g <- g + theme(axis.text.x=element_text(angle=25, hjust = 1))
+            g <- g + ggtitle("Students performance by Career") 
+            g <- g + xlab("Career")
+            g <- g + ylab("Performance")
+            g
+```
+
+
+

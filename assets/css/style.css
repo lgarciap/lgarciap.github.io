@@ -1,0 +1,27 @@
+.title-slide hgroup > h1, .title-slide hgroup > h2 {
+    color:#037AAE;
+}
+.title-slide {
+  background-color: #FFFFFF; /* #EDE0CF; ; #CA9F9D*/
+  /* background-image:url(http://goo.gl/EpXln); */
+}
+
+.title-slide hgroup {
+	
+    background-color: #ECF5F9;
+    border: 1px solid #CFCFD0;
+    margin-left: 6%;
+    border-radius: 22px;
+    padding: 10%;
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(224,226,227,1);
+	-moz-box-shadow: 10px 10px 5px 0px rgba(224,226,227,1);
+	box-shadow: 10px 10px 5px 0px rgba(224,226,227,1);
+}
+
+slide:not(.segue) h2 {
+    color: #037AAE;
+}
+
+strong{
+	color:#43C0F6;
+}
